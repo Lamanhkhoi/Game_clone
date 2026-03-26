@@ -34,7 +34,12 @@ public class GameLogic {
         spawnTimer += 1;
 
         if(spawnTimer >= 100){
-            
+            spawnPipe();
+            spawnTimer = 0;
         }
+    }
+
+    public spawnPipe(){
+        
     }
 }
