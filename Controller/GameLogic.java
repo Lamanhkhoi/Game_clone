@@ -37,9 +37,61 @@ public class GameLogic {
             spawnPipe();
             spawnTimer = 0;
         }
+
+        for(int i = this.Pipes.size() - 1; i >= 0; i--){
+            pipe currentPipe = this.Pipes.get(i);
+            currentPipe.move();
+
+            if (this.Bird.getX() > currentPipe.getX() + currentPipe.getWidth() && !currentPipe.isPassed()) {
+                this.Score += 1;
+                currentPipe.setPassed(true); 
+            }
+
+            if (this.Bird.getBounds().intersects(currentPipe.getBounds())) {
+                this.isGameOver = true;
+            }
+            if (this.Bird.getY() > 600) {
+                this.isGameOver = true;
+            }
+
+            if (currentPipe.getX() + currentPipe.getWidth() < 0) {
+                this.Pipes.remove(i); 
+            }
+        }
     }
 
-    public spawnPipe(){
-        
+    public void spawnPipe(){
+        int pipeX = 800; 
+        int gap = 150;
+        int topHeight = 100 + this.ramdomGenerator.nextInt(200);
+        pipe topPipe = new pipe(pipeX, 0, topHeight); 
+        this.Pipes.add(topPipe);
+        int bottomY = topHeight + gap;
+        int bottomHeight = 600 - bottomY;
+        pipe bottomPipe = new pipe(pipeX, bottomY, bottomHeight);
+        this.Pipes.add(bottomPipe);
     }
+
+    public void birdJump(){
+        if(!isGameOver){
+            this.Bird.jump();
+        }
+    }
+
+    public bird getBird() {
+        return Bird;
+    }
+
+    public ArrayList<pipe> getPipes() {
+        return Pipes;
+    }
+
+    public int getScore() {
+        return Score;
+    }
+
+    public boolean isGameOver() {
+        return isGameOver;
+    }
+
 }
