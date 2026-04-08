@@ -19,8 +19,8 @@ public class bird {
         this.height = 24;
 
         this.velocity = 0;      
-        this.gravity = 0.5;     
-        this.jumpStrength = -9;
+        this.gravity = 5;     
+        this.jumpStrength = 200;
     }
 
     public void jump(){
